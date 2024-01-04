@@ -95,6 +95,7 @@ fn test_happy_path() {
     );
     sleep(Duration::from_secs(1));
     token.cancel();
+    drop(client);
     println!("Joining thread");
     handle.join().expect("Thread");
 }

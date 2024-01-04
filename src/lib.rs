@@ -48,6 +48,13 @@ macro_rules! implement_sync_grpc_client {
                     $crate::implement_service_method!{ $type, $client, $fn, $req, $res}
                 )*
             }
+
+            impl Drop for [<Sync$client>] {
+                fn drop(&mut self) {
+                    println!("Dropping the client");
+                    self.runtime.block_on(async {});
+                }
+            }
         }
     };
 }
